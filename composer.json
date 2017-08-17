@@ -1,0 +1,20 @@
+{
+        "name": "atk14/menu14",
+        "type": "library",
+        "description": "Menu14 is a menu generator designated for ATK14 applications",
+        "keywords": ["menu","atk14"],
+        "homepage": "https://github.com/atk14/Menu14",
+        "license": ["MIT"],
+        "authors": [
+                {
+                        "name": "Jaromir Tomek",
+                        "homepage": "https://github.com/yarri"
+                }
+        ],
+        "require": {
+                "php": ">=5.3.0"
+        },
+        "autoload": {
+                "classmap": ["src"]
+        }
+}
