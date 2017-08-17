@@ -35,7 +35,7 @@
  *	...
  *
  *	{* file: app/views/shared/layout/_menu.tpl *}
- * 	{if !$menu->isEmpty()}
+ *	{if !$menu->isEmpty()}
  *	<ul>
  *		{foreach $menu->getItems() as $item}
  *		<li{if $item->isActive($controller,$action)} class="active"{/if}>
@@ -57,19 +57,38 @@ class Menu14 {
 	}
 
 	/**
-	 * $menu->add("Articles",["articles"]);
-	 * $menu->add("Register",["logins/create_new","users/create_new"]);
+	 *	$menu->add("Articles",["articles"]);
+	 *	$menu->add("Register",["logins/create_new","users/create_new"]);
+	 *
+	 *	$menu->add("Anual Report",$this->_link_to(["action" => "articles/detail", "id" => 1234]));
 	 *
 	 * For future referencing an identifier can be specified
-	 * $menu->add("Articles",["articles"],"articles");
+	 *	$menu->add("Articles",["articles"],"articles");
+	 *
+	 * Also "active" status can be specified. Otherwise there is an autodetection.
+	 *	$menu->add("Anual Report",$this->_link_to(["action" => "articles/detail", "id" => 1234]),["active" => true, "identifier" => "anual_report"]);
 	 */
-	function &add($snippet,$targets = array(),$identifier = ""){
-		$child_menu = new Menu14($this,$identifier);
+	function &add($snippet,$targets = array(),$options = array()){
+		if(is_string($options)){
+			$options = array("identifier" => $options);
+		}
+
+		if(is_bool($options)){
+			$options = array("active" => $options);
+		}
+
+		$options += array(
+			"identifier" => "",
+			"active" => null, // null, true, false, "autor"; null means auto detection
+		);
+
+		$child_menu = new Menu14($this,$options["identifier"]);
 		$this->child_menu = &$child_menu;
 
 		$this->items[] = new Menu14Item($this,$child_menu,array(
 			"snippet" => $snippet,
 			"targets" => $targets,
+			"active" => $options["active"],
 		));
 		return $child_menu;
 	}
@@ -110,6 +129,7 @@ class Menu14Item {
 
 	protected $targets = array();
 	protected $snippet = "";
+	protected $active = null;
 
 	protected $current_controller = null;
 	protected $current_action = null;
@@ -117,7 +137,8 @@ class Menu14Item {
 	function __construct(&$menu,&$child_menu,$options = array()){
 		$options += array(
 			"snippet" => "Menu",
-			"targets" => array()
+			"targets" => array(),
+			"active" => null, // null, true, false, "autor"; null means auto detection
 		);
 
 		if(!is_array($options["targets"])){
@@ -130,15 +151,24 @@ class Menu14Item {
 
 		$this->targets = $options["targets"];
 		$this->snippet = $options["snippet"];
+		$this->active = $options["active"];
 
 		$this->menu = &$menu;
 		$this->child_menu = &$child_menu;
 	}
 
+	function getTitle(){
+		return $this->snippet;
+	}
+
+	function getUrl($options = array()){
+		return $this->getLink($options);
+	}
+
 	function getMarkup($linkOptions = array()){
 		($link = $this->getLink($linkOptions)) || ($link = "#");
 
-		$out = sprintf('<a href="%s" title="%s">%s</a>',$link,htmlentities($this->snippet, ENT_COMPAT | ENT_HTML401 | ENT_QUOTES),$this->snippet);
+		$out = sprintf('<a href="%s" title="%s">%s</a>',$link,htmlentities($this->getTitle(), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES),$this->getTitle());
 
 		return $out;
 	}
@@ -159,8 +189,12 @@ class Menu14Item {
 		unset($linkOptions["namespace"]);
 		unset($linkOptions["lang"]);
 
-		foreach($this->targets as $ctrl){
-			$ary = explode("/",$ctrl);
+		foreach($this->targets as $target){
+			if(preg_match('/^(\/|https?:)/',$target)){
+				return $target;
+			}
+
+			$ary = explode("/",$target);
 			$params = sizeof($ary)==1 ? array("controller" => $ary[0], "action" => "index") : array("controller" => $ary[0], "action" => $ary[1]);
 			$params["namespace"] = $namespace;
 			$params["lang"] = $lang;
@@ -195,6 +229,11 @@ class Menu14Item {
 		//
 		$this->current_controller = $current_controller;
 		$this->current_action = $current_action;
+
+		if(isset($this->active) && strtolower($this->active)!=="auto"){
+			// !! true or false
+			return $this->active;
+		}
 
 		foreach($this->targets as $ctrl){
 			$ary = explode("/",$ctrl); // "articles/archive" -> ["articles","archive"]
