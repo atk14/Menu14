@@ -14,7 +14,7 @@
  *	{foreach $menu->getItems() as $item}
  *		<li{if $item->isActive($controller,$action)} class="active"{/if}>
  *
- *			{$item->getHtml()}
+ *			{$item->getMarkup()}
  *
  *			{assign var=submenu value=$item->getSubmenu()}
  *			{if $item->isActive($controller,$action) && !$submenu->isEmpty()}
