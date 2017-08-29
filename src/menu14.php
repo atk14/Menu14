@@ -14,7 +14,7 @@
  *	{foreach $menu->getItems() as $item}
  *		<li{if $item->isActive($controller,$action)} class="active"{/if}>
  *
- *			{$item->getMarkup()}
+ *			<a href="{$item->getUrl()}">{$item->getTitle()}</a>
  *
  *			{assign var=submenu value=$item->getSubmenu()}
  *			{if $item->isActive($controller,$action) && !$submenu->isEmpty()}
@@ -39,7 +39,7 @@
  *	<ul>
  *		{foreach $menu->getItems() as $item}
  *		<li{if $item->isActive($controller,$action)} class="active"{/if}>
- *			{$item->getMarkup()}
+ *			<a href="{$item->getUrl()}">{$item->getTitle()}</a>
  *			{render partial="shared/layout/menu" menu=$item->getSubmenu()}
  *		</li>
  *	</ul>
@@ -167,8 +167,6 @@ class Menu14Item {
 
 	/**
 	 * Generic markup of the item
-	 *
-	 * 
 	 */
 	function getMarkup($linkOptions = array()){
 		($link = $this->getLink($linkOptions)) || ($link = "#");

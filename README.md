@@ -22,7 +22,7 @@ In a template:
     {foreach $menu->getItems() as $item}
       <li{if $item->isActive($controller,$action)} class="active"{/if}>
                                                                           
-        {$item->getMarkup()}
+        <a href="{$item->getUrl()}">{$item->getTitle()}</a>
                                                                           
         {assign var=submenu value=$item->getSubmenu()}
         {if $item->isActive($controller,$action) && !$submenu->isEmpty()}
