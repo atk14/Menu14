@@ -165,10 +165,15 @@ class Menu14Item {
 		return $this->getLink($options);
 	}
 
+	/**
+	 * Generic markup of the item
+	 *
+	 * 
+	 */
 	function getMarkup($linkOptions = array()){
 		($link = $this->getLink($linkOptions)) || ($link = "#");
 
-		$out = sprintf('<a href="%s" title="%s">%s</a>',$link,htmlentities($this->getTitle(), ENT_COMPAT | ENT_HTML401 | ENT_QUOTES),$this->getTitle());
+		$out = sprintf('<a href="%s">%s</a>',htmlentities($link),htmlentities($this->getTitle()));
 
 		return $out;
 	}
