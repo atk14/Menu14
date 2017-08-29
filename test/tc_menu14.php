@@ -52,4 +52,33 @@ class TcMenu14 extends TcBase {
 		$items = $submenu->getItems();
 		$this->assertEquals(0,sizeof($items));
 	}
+
+	function test_breadcrumbs(){
+		// also testing ArrayAccess, Countable and Iterator
+
+		$breadcrumbs = new Menu14();
+
+		$this->assertEquals(0,sizeof($breadcrumbs));
+
+		$breadcrumbs[] = ["Home", "main/index"];
+		$breadcrumbs->add("Articles", "articles/index");
+		$breadcrumbs[] = "Best article in the universe";
+
+		$this->assertEquals(3,sizeof($breadcrumbs));
+
+		$this->assertEquals("Home",$breadcrumbs[0]->getTitle());
+		$this->assertEquals("/",$breadcrumbs[0]->getUrl());
+
+		$this->assertEquals("Articles",$breadcrumbs[1]->getTitle());
+		$this->assertEquals("/en/articles/",$breadcrumbs[1]->getUrl());
+
+		$this->assertEquals("Best article in the universe",$breadcrumbs[2]->getTitle());
+		$this->assertEquals(null,$breadcrumbs[2]->getUrl());
+
+		$ary = [];
+		foreach($breadcrumbs as $item){
+			$ary[] = $item->getTitle();
+		}
+		$this->assertEquals("Home / Articles / Best article in the universe",join(" / ",$ary));
+	}
 }

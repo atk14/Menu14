@@ -45,7 +45,7 @@
  *	</ul>
  *	{/if}
  */
-class Menu14 {
+class Menu14 implements ArrayAccess, Iterator, Countable {
 
 	protected $parent_menu = null;
 	protected $items = array();
@@ -69,6 +69,11 @@ class Menu14 {
 	 *	$menu->add("Anual Report",$this->_link_to(["action" => "articles/detail", "id" => 1234]),["active" => true, "identifier" => "anual_report"]);
 	 */
 	function &add($snippet,$targets = array(),$options = array()){
+		if(is_array($snippet)){
+			$targets = $snippet[1];
+			$snippet = $snippet[0];
+		}
+
 		if(is_string($options)){
 			$options = array("identifier" => $options);
 		}
@@ -120,6 +125,65 @@ class Menu14 {
 		$out = array_reverse($out);
 		return join("/",$out);
 	}
+
+	/*** functions implementing array like access ***/
+	/**
+	 * @ignore
+	 */
+	function offsetGet($value){ return $this->items[$value]; }
+
+	/**
+	 * @ignore
+	 */
+	function offsetSet($key, $value){
+		if(!isset($key)){
+			$key = sizeof($this->items);
+		}
+		$this->add($value);
+	}
+
+	/**
+	 * @ignore
+	 */
+	function offsetUnset($value){ $this->items[$value]; }
+
+	/**
+	 * @ignore
+	 */
+	function offsetExists($value){ return isset($this->items[$value]); }
+
+	/**
+	 * @ignore
+	 */
+	function current(){ return current($this->items); }
+
+	/**
+	 * @ignore
+	 */
+	function key(){ return key($this->items); }
+
+	/**
+	 * @ignore
+	 */
+	function next(){ return next($this->items); }
+
+	/**
+	 * @ignore
+	 */
+	function rewind(){ reset($this->items); }
+
+	/**
+	 * @ignore
+	 */
+	function valid(){
+		$key = key($this->items);
+		return ($key !== null && $key !== false);
+	}
+
+	/**
+	 * @ignore
+	 */
+	function count(){ return sizeof($this->items); }
 }
 
 class Menu14Item {
