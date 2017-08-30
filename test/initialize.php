@@ -14,6 +14,6 @@ $ATK14_GLOBAL->shouldReceive('getValue')->with("action")->andReturn("index");
 $ATK14_GLOBAL->shouldReceive('getValue')->with("namespace")->andReturn("");
 
 $atk14_url = Mockery::mock("alias:Atk14Url");
-$atk14_url->shouldReceive("BuildLink")->with(["namespace" => "", "controller" => "main", "action" => "index", "lang" => "en"],[])->andReturn("/");
-$atk14_url->shouldReceive("BuildLink")->with(["namespace" => "", "controller" => "articles", "action" => "index", "lang" => "en"],[])->andReturn("/en/articles/");
-$atk14_url->shouldReceive("BuildLink")->with(["namespace" => "", "controller" => "articles", "action" => "recent", "lang" => "en"],[])->andReturn("/en/articles/recent/");
+$atk14_url->shouldReceive("BuildLink")->with(array("namespace" => "", "controller" => "main", "action" => "index", "lang" => "en"),array())->andReturn("/");
+$atk14_url->shouldReceive("BuildLink")->with(array("namespace" => "", "controller" => "articles", "action" => "index", "lang" => "en"),array())->andReturn("/en/articles/");
+$atk14_url->shouldReceive("BuildLink")->with(array("namespace" => "", "controller" => "articles", "action" => "recent", "lang" => "en"),array())->andReturn("/en/articles/recent/");

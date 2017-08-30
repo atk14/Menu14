@@ -10,9 +10,9 @@ class TcMenu14 extends TcBase {
 		$sites->add("To be continued"); // no link
 		//
 		$articles = $menu->add("Articles","articles");
-		$articles->add("Recent",["articles/recent"]);
-		$articles->add("2017","/en/articles/archive/?year=2017",["active" => true]);
-		$articles->add("Archive",["articles/archive"]);
+		$articles->add("Recent",array("articles/recent"));
+		$articles->add("2017","/en/articles/archive/?year=2017",array("active" => true));
+		$articles->add("Archive",array("articles/archive"));
 
 		$items = $menu->getItems();
 		//
@@ -60,7 +60,7 @@ class TcMenu14 extends TcBase {
 
 		$this->assertEquals(0,sizeof($breadcrumbs));
 
-		$breadcrumbs[] = ["Home", "main/index"];
+		$breadcrumbs[] = array("Home", "main/index");
 		$breadcrumbs->add("Articles", "articles/index");
 		$breadcrumbs[] = "Best article in the universe";
 
@@ -75,7 +75,7 @@ class TcMenu14 extends TcBase {
 		$this->assertEquals("Best article in the universe",$breadcrumbs[2]->getTitle());
 		$this->assertEquals(null,$breadcrumbs[2]->getUrl());
 
-		$ary = [];
+		$ary = array();
 		foreach($breadcrumbs as $item){
 			$ary[] = $item->getTitle();
 		}
