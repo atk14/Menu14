@@ -1,49 +1,8 @@
 <?php
 /**
- * Menu14 is a menu generator designated for an ATK14 application
+ * Menu14 is a menu and breadcrumbs generator designated for ATK14 applications
  *
- * Menu14 has simple configuration that keeps in mind the ATK14 concept of controllers and actions.
- * Menu14 has no limited count of submenu levels.
- *
- * $menu = new Menu14();
- * $submenu = $menu->add("Archive");
- * $submenu->add("Top articles",["top_articles/last_month","top_articles/last_year"]);
- * $submenu->add("Whole archive",["articles/index"]);
- *
- *	<ul>
- *	{foreach $menu->getItems() as $item}
- *		<li{if $item->isActive($controller,$action)} class="active"{/if}>
- *
- *			<a href="{$item->getUrl()}">{$item->getTitle()}</a>
- *
- *			{assign var=submenu value=$item->getSubmenu()}
- *			{if $item->isActive($controller,$action) && !$submenu->isEmpty()}
- *				<ul>
- *					{foreach $submenu->getItems() as $s_item}
- *						...
- *					{/foreach}
- *				</ul>
- *			{/if}
- *
- *		</li>
- *	{/foreach}
- *	</ul>
- *
- *	{* file: app/layouts/default.tpl *}
- *	...
- *	{render partial="shared/layout/menu" menu=$menu}
- *	...
- *
- *	{* file: app/views/shared/layout/_menu.tpl *}
- *	{if !$menu->isEmpty()}
- *	<ul>
- *		{foreach $menu->getItems() as $item}
- *		<li{if $item->isActive($controller,$action)} class="active"{/if}>
- *			<a href="{$item->getUrl()}">{$item->getTitle()}</a>
- *			{render partial="shared/layout/menu" menu=$item->getSubmenu()}
- *		</li>
- *	</ul>
- *	{/if}
+ * For more information see https://github.com/atk14/Menu14/blob/master/README.md
  */
 class Menu14 implements ArrayAccess, Iterator, Countable {
 
