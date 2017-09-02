@@ -16,6 +16,8 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	}
 
 	/**
+	 * Add new item to the menu
+	 *
 	 *	$menu->add("Articles",["articles"]);
 	 *	$menu->add("Register",["logins/create_new","users/create_new"]);
 	 *
@@ -26,8 +28,10 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	 *
 	 * Also "active" status can be specified. Otherwise there is an autodetection.
 	 *	$menu->add("Anual Report",$this->_link_to(["action" => "articles/detail", "id" => 1234]),["active" => true, "identifier" => "anual_report"]);
+	 *
+	 * @return Menu14Item New item
 	 */
-	function &add($snippet,$targets = array(),$options = array()){
+	function &addItem($snippet,$targets = array(),$options = array()){
 		if(is_array($snippet)){
 			$targets = $snippet[1];
 			$snippet = $snippet[0];
@@ -43,7 +47,8 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 
 		$options += array(
 			"identifier" => "",
-			"active" => null, // null, true, false, "autor"; null means auto detection
+			"active" => null, // null, true, false, "auto"; null means auto detection
+			"disabled" => null, // null, true, false, "auto"; null means auto detection (no link -> disabled)
 		);
 
 		$child_menu = new Menu14($this,$options["identifier"]);
@@ -53,8 +58,20 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 			"snippet" => $snippet,
 			"targets" => $targets,
 			"active" => $options["active"],
+			"disabled" => $options["disabled"],
 		));
-		return $child_menu;
+		return $this->items[sizeof($this->items)-1];
+	}
+
+	/**
+	 * The same like addItem() but it returns Menu14
+	 *
+	 * @return Menu14
+	 */
+	function &add($snippet,$targets = array(),$options = array()){
+		$item = $this->addItem($snippet,$targets,$options);
+		$submenu = $item->getSubmenu();
+		return $submenu;
 	}
 
 	function &getParentMenu(){
@@ -153,6 +170,7 @@ class Menu14Item {
 	protected $targets = array();
 	protected $snippet = "";
 	protected $active = null;
+	protected $disabled = null;
 
 	protected $current_controller = null;
 	protected $current_action = null;
@@ -161,7 +179,8 @@ class Menu14Item {
 		$options += array(
 			"snippet" => "Menu",
 			"targets" => array(),
-			"active" => null, // null, true, false, "autor"; null means auto detection
+			"active" => null, // null, true, false, "auto"; null means auto detection
+			"disabled" => null, // null, true, false, "auto"; null means auto detection (no link -> disabled)
 		);
 
 		if(!is_array($options["targets"])){
@@ -175,6 +194,7 @@ class Menu14Item {
 		$this->targets = $options["targets"];
 		$this->snippet = $options["snippet"];
 		$this->active = $options["active"];
+		$this->disabled = $options["disabled"];
 
 		$this->menu = &$menu;
 		$this->child_menu = &$child_menu;
@@ -277,6 +297,31 @@ class Menu14Item {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Is this menu item disabled?
+	 */
+	function isDisabled(){
+		if(is_null($this->disabled) || $this->disabled==="auto"){
+			// no link -> disabled by default
+			return $this->getUrl() ? false : true;
+		}
+		return (boolean)$this->disabled;
+	}
+
+	/**
+	 * Sets this menu item to a disabled state
+	 *
+	 *	$item->setDisabled();
+	 *	$item->setDisabled(true);
+	 *
+	 * To deactivate the disabled state:
+	 *
+	 *	$item->setDisabled(false);
+	 */
+	function setDisabled($disabled = true){
+		$this->disabled = (boolean)$disabled;
 	}
 
 	function getIdentifier(){ return $this->child_menu->getIdentifier(); }
