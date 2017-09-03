@@ -77,6 +77,22 @@ class TcMenu14 extends TcBase {
 		$this->assertEquals(0,sizeof($items));
 	}
 
+	function test_addItem(){
+		$menu = new Menu14();
+
+		$item_1 = $menu->addItem("Item 1","main/index");
+		$this->assertTrue(is_a($item_1,"Menu14Item"));
+
+		$item_2 = $menu->addItem("Item 2","main/contact");
+		$this->assertTrue(is_a($item_2,"Menu14Item"));
+		$item_2->setDisabled();
+
+		$items = $menu->getItems();
+		$this->assertEquals(2,sizeof($items));
+		$this->assertEquals(false,$items[0]->isDisabled());
+		$this->assertEquals(true,$items[1]->isDisabled());
+	}
+
 	function test_breadcrumbs(){
 		// also testing ArrayAccess, Countable and Iterator
 
