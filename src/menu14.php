@@ -121,12 +121,12 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	/**
 	 * @ignore
 	 */
-	function offsetUnset($value){ $this->items[$value]; }
+	function offsetUnset($offset){ unset($this->items[$offset]); }
 
 	/**
 	 * @ignore
 	 */
-	function offsetExists($value){ return isset($this->items[$value]); }
+	function offsetExists($offset){ return isset($this->items[$offset]); }
 
 	/**
 	 * @ignore
