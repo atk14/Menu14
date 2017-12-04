@@ -49,17 +49,28 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 			"identifier" => "",
 			"active" => null, // null, true, false, "auto"; null means auto detection
 			"disabled" => null, // null, true, false, "auto"; null means auto detection (no link -> disabled)
+			"index" => null, // int or null add to given position, null means at end
+			"overwrite" => false // if false, insert the item (shift old item right), if false, delete the item with the same index
 		);
 
 		$child_menu = new Menu14($this,$options["identifier"]);
 		$this->child_menu = &$child_menu;
 
-		$this->items[] = new Menu14Item($this,$child_menu,array(
+		$item = new Menu14Item($this,$child_menu,array(
 			"snippet" => $snippet,
 			"targets" => $targets,
 			"active" => $options["active"],
 			"disabled" => $options["disabled"],
 		));
+		if($options["index"] === null) {
+			$this->items[] = $item;
+		} elseif($options["overwrite"]) {
+			$this->items[$options["index"]] = $item;
+			ksort($this->items);
+		} else {
+			array_splice($this->items, $options["index"], 0, array($item));
+		}
+
 		return $this->items[sizeof($this->items)-1];
 	}
 
@@ -115,7 +126,7 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 		if(!isset($key)){
 			$key = sizeof($this->items);
 		}
-		$this->add($value);
+		$this->add($value, array(), array("index" => $key, "overwrite" => true));
 	}
 
 	/**

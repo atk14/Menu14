@@ -93,6 +93,20 @@ class TcMenu14 extends TcBase {
 		$this->assertEquals(true,$items[1]->isDisabled());
 	}
 
+	function test_inserting_replacing(){
+		$menu = new Menu14();
+		$menu->add("Item 1","main/index");
+		$menu->add("Item 2","main/index");
+		$menu->add("Item 1,5","main/index",array("index" => 1));
+		$menu->add("Item 1 (replaced)","main/index",array("index" => 0, "overwrite" => true));
+
+		$items = $menu->getItems();
+		$this->assertEquals(3,sizeof($items));
+		$this->assertEquals("Item 1 (replaced)",$items[0]->getTitle());
+		$this->assertEquals("Item 1,5",$items[1]->getTitle());
+		$this->assertEquals("Item 2",$items[2]->getTitle());
+	}
+
 	function test_breadcrumbs(){
 		// also testing ArrayAccess, Countable and Iterator
 
