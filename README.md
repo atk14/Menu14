@@ -3,7 +3,7 @@ Menu14
 
 Menu14 is a menu generator designated for ATK14 applications.
 
-Menu14 has simple configuration that keeps in mind the ATK14 concept of controllers and actions. Menu14 has no limited count of submenu levels.
+Menu14 has simple configuration that keeps in mind the ATK14 concept of controllers and actions.
 
 Menu14 can build branched navigation structures. There is no limit of submenu levels count.
 
