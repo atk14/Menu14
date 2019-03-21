@@ -30,7 +30,7 @@ In a controller:
     $submenu->add("Contact","main/contact");
 
     // disabled items should be displayed non clickable
-    $user_menu = $main->add("User");
+    $user_menu = $menu->add("User");
     $user_menu->add("Login","logins/create_new",["disabled" => $is_user_logged]);
     $user_menu->add("Logout","logins/destroy",["disabled" => !$is_user_logged]);
     $user_menu->add("Profile","users/detail",["disabled" => !$is_user_logged]);
