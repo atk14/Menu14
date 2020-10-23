@@ -59,6 +59,11 @@ In a template:
     </ul>
     {/if}
 
+There are two methods for creating node in a menu.
+
+    $menu->add("Label",$targets_or_url,$options); // creates new menu item and return its submenu (which is at the moment empty)
+    $menu->addItem("Label",$targets_or_url,$options); // creates new menu item - this new menu item is returned
+
 Breadcrumbs
 -----------
 
@@ -91,7 +96,37 @@ In a template:
       </ol>
     {/if}
 
-Check out http://skelet.atk14.net/en/articles/ to see this example live. 
+Check out http://skelet.atk14.net/en/articles/ to see this example live.
+
+Metadata
+--------
+
+Metadata can be set on menus or menu items. It may be useful for storing things like colors, images, fade effects...
+
+    $menu = new Menu14();
+
+    $websites = $menu->add("Frameworks");
+    $websites->setMeta("image_url","/public/icons/sprockets.png");
+
+    $item_atk14 = $website->addItem("Atk14","https://www.atk14.net/",[
+      "meta" => [
+        "image_url" => "/public/icons/atk14_birdie.png",
+        "color" => "black"
+      ]
+    ]);
+
+    $item_laravel = $website->addItem("Laravel","https://laravel.com/");
+    $item_laravel->setMeta("image_url","/public/icons/laravel.png");
+    $item_laravel->setMeta("color","red");
+
+    // getting metadata
+
+    $websites->getMeta("image_url"); // "/public/icons/sprockets.png"
+    $websites->getMeta("color"); // null
+    $item_atk14->getMeta("image_url"); // "/public/icons/atk14_birdie.png"
+    $item_atk14->getMeta("color"); // "black"
+    $item_laravel->getMeta("image_url"); // "/public/icons/laravel.png"
+    $item_laravel->getMeta("color"); // "red"
 
 Installation
 ------------
