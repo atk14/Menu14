@@ -145,4 +145,32 @@ class TcMenu14 extends TcBase {
 		}
 		$this->assertEquals("Home / Articles / Best article in the universe",join(" / ",$ary));
 	}
+
+	function test_metadata(){
+		$menu = new Menu14();
+
+		$this->assertEquals(array(),$menu->getMeta());
+		$this->assertEquals(null,$menu->getMeta("color"));
+		$this->assertEquals(null,$menu->getMeta("image"));
+
+		$menu->setMeta("color","green");
+		$menu->setMeta("border","2px");
+
+		$this->assertEquals(array("color" => "green", "border" => "2px"),$menu->getMeta());
+		$this->assertEquals("green",$menu->getMeta("color"));
+		$this->assertEquals(null,$menu->getMeta("image"));
+
+		$item = $menu->addItem("First","main/first");
+
+		$this->assertEquals(array(),$item->getMeta());
+		$this->assertEquals(null,$item->getMeta("color"));
+		$this->assertEquals(null,$item->getMeta("image"));
+
+		$item->setMeta("color","yellow");
+		$item->setMeta("border","1px");
+
+		$this->assertEquals(array("color" => "yellow", "border" => "1px"),$item->getMeta());
+		$this->assertEquals("yellow",$item->getMeta("color"));
+		$this->assertEquals(null,$item->getMeta("image"));
+	}
 }

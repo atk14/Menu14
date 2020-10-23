@@ -9,10 +9,16 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	protected $parent_menu = null;
 	protected $items = array();
 	protected $identifier = "";
+	protected $meta = array();
 
-	function __construct(&$parent_menu = null,$identifier = ""){
+	function __construct(&$parent_menu = null,$identifier = "",$options = array()){
+		$options += array(
+			"meta" => array(), // e.g. ["image_url" => "/path/to/image.jpg"]
+		);
+
 		$this->parent_menu = $parent_menu;
 		$this->identifier = $identifier;
+		$this->meta = $options["meta"];
 	}
 
 	/**
@@ -113,6 +119,29 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 		}
 		$out = array_reverse($out);
 		return join("/",$out);
+	}
+
+	/**
+	 * Returns metadata for this menu
+	 *
+	 *	$menu->getMeta(); // ["image_url" => "/path/to/image.jpg", "color" => "#333333"]
+	 *	$menu->getMeta("image_url"); // "/path/to/image.jpg"
+	 */
+	function getMeta($key = null){
+		if(is_null($key)){
+			return $this->meta;
+		}
+		$key = (string)$key;
+		return isset($this->meta[$key]) ? $this->meta[$key] : null;
+	}
+
+	/**
+	 * Sets metadata for the given key
+	 *
+	 *	$menu->setMeta("image_url","/path/to/image.jpg");
+	 */
+	function setMeta($key,$value){
+		$this->meta[(string)$key] = $value;
 	}
 
 	/*** functions implementing array like access ***/
@@ -341,7 +370,7 @@ class Menu14Item {
 	}
 
 	/**
-	 * Returns meta data for this item
+	 * Returns metadata for this item
 	 *
 	 *	$item->getMeta(); // ["image_url" => "/path/to/image.jpg", "color" => "#333333"]
 	 *	$item->getMeta("image_url"); // "/path/to/image.jpg"
@@ -350,7 +379,17 @@ class Menu14Item {
 		if(is_null($key)){
 			return $this->meta;
 		}
+		$key = (string)$key;
 		return isset($this->meta[$key]) ? $this->meta[$key] : null;
+	}
+
+	/**
+	 * Sets metadata for the given key
+	 *
+	 *	$item->setMeta("image_url","/path/to/image.jpg");
+	 */
+	function setMeta($key,$value){
+		$this->meta[(string)$key] = $value;
 	}
 
 	function getIdentifier(){ return $this->child_menu->getIdentifier(); }
