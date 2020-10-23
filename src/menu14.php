@@ -50,7 +50,8 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 			"active" => null, // null, true, false, "auto"; null means auto detection
 			"disabled" => null, // null, true, false, "auto"; null means auto detection (no link -> disabled)
 			"index" => null, // int or null add to given position, null means at end
-			"overwrite" => false // if false, insert the item (shift old item right), if false, delete the item with the same index
+			"overwrite" => false, // if false, insert the item (shift old item right), if false, delete the item with the same index
+			"metadata" => array(), // e.g. ["image_url" => "/path/to/image.jpg"]
 		);
 
 		$child_menu = new Menu14($this,$options["identifier"]);
@@ -61,6 +62,7 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 			"targets" => $targets,
 			"active" => $options["active"],
 			"disabled" => $options["disabled"],
+			"metadata" => $options["metadata"],
 		));
 		if($options["index"] === null) {
 			$this->items[] = $item;
@@ -182,6 +184,7 @@ class Menu14Item {
 	protected $snippet = "";
 	protected $active = null;
 	protected $disabled = null;
+	protected $metadata = array();
 
 	protected $current_controller = null;
 	protected $current_action = null;
@@ -192,6 +195,7 @@ class Menu14Item {
 			"targets" => array(),
 			"active" => null, // null, true, false, "auto"; null means auto detection
 			"disabled" => null, // null, true, false, "auto"; null means auto detection (no link -> disabled)
+			"metadata" => array(), // e.g. ["image_url" => "/path/to/image.jpg"]
 		);
 
 		if(!is_array($options["targets"])){
@@ -206,6 +210,7 @@ class Menu14Item {
 		$this->snippet = $options["snippet"];
 		$this->active = $options["active"];
 		$this->disabled = $options["disabled"];
+		$this->metadata = $options["metadata"];
 
 		$this->menu = &$menu;
 		$this->child_menu = &$child_menu;
@@ -333,6 +338,19 @@ class Menu14Item {
 	 */
 	function setDisabled($disabled = true){
 		$this->disabled = (boolean)$disabled;
+	}
+
+	/**
+	 * Returns meta data for this item
+	 *
+	 *	$item->getMetadata(); // ["image_url" => "/path/to/image.jpg", "color" => "#333333"]
+	 *	$item->getMetadata("image_url"); // "/path/to/image.jpg"
+	 */
+	function getMetadata($key = null){
+		if(is_null($key)){
+			return $this->metadata;
+		}
+		return isset($this->metadata[$key]) ? $this->metadata[$key] : null;
 	}
 
 	function getIdentifier(){ return $this->child_menu->getIdentifier(); }

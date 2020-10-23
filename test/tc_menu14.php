@@ -5,8 +5,8 @@ class TcMenu14 extends TcBase {
 		$menu = new Menu14();
 		//
 		$sites = $menu->add("Atk14 Sites");
-		$sites->add("Atk14","http://www.atk14.net/");
-		$sites->add("Book","http://book.atk14.net/");
+		$sites->add("Atk14","http://www.atk14.net/",array("metadata" => array("color" => "red", "image" => "atk14_birdie.png")));
+		$sites->add("Book","http://book.atk14.net/",array("metadata" => array("image" => "book.png")));
 		$sites->add("To be continued"); // no link -> disabled by default
 		//
 		$articles = $menu->add("Articles","articles");
@@ -57,14 +57,24 @@ class TcMenu14 extends TcBase {
 		$this->assertEquals("Atk14",$items[0]->getTitle());
 		$this->assertEquals("http://www.atk14.net/",$items[0]->getUrl());
 		$this->assertEquals(false,$items[0]->isDisabled());
+		$this->assertEquals("red",$items[0]->getMetadata("color"));
+		$this->assertEquals("atk14_birdie.png",$items[0]->getMetadata("image"));
+		$this->assertEquals(array("color" => "red", "image" => "atk14_birdie.png"),$items[0]->getMetadata());
 		//
 		$this->assertEquals("Book",$items[1]->getTitle());
 		$this->assertEquals("http://book.atk14.net/",$items[1]->getUrl());
 		$this->assertEquals(false,$items[1]->isDisabled());
+		$this->assertEquals(false,$items[1]->isDisabled());
+		$this->assertEquals(null,$items[1]->getMetadata("color"));
+		$this->assertEquals("book.png",$items[1]->getMetadata("image"));
+		$this->assertEquals(array("image" => "book.png"),$items[1]->getMetadata());
 		//
 		$this->assertEquals("To be continued",$items[2]->getTitle());
 		$this->assertEquals(null,$items[2]->getUrl());
 		$this->assertEquals(true,$items[2]->isDisabled());
+		$this->assertEquals(null,$items[2]->getMetadata("color"));
+		$this->assertEquals(null,$items[2]->getMetadata("image"));
+		$this->assertEquals(array(),$items[2]->getMetadata());
 		// ... playing with setDisabled()
 		$items[2]->setDisabled();
 		$this->assertEquals(true,$items[2]->isDisabled());
