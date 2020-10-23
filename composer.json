@@ -15,6 +15,7 @@
                 "php": ">=5.3.0"
         },
         "require-dev": {
+                "atk14/tester": "*",
                 "mockery/mockery": "0.9",
                 "phpunit/phpunit": "4.8.*"
         },
