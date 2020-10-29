@@ -16,8 +16,7 @@
         },
         "require-dev": {
                 "atk14/tester": "*",
-                "mockery/mockery": "0.9",
-                "phpunit/phpunit": "4.8.*"
+                "mockery/mockery": "0.9.11"
         },
         "autoload": {
                 "classmap": ["src"]
