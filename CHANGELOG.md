@@ -2,6 +2,10 @@ Change Log
 ==========
 All notable changes to this project will be documented in this file.
 
+## [1.5] - 2022-03-16
+
+* 467caa0 - Added methods Menu14Item::setCssClass() and Menu14Item::getCssClass() which are aliases for Menu14Item::setMeta("css_class") and Menu14Item::getMeta("css_class")
+
 ## [1.4] - 2020-10-23
 
 - Metadata can be defined on Menu14 and Menu14Item
