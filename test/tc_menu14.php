@@ -173,4 +173,18 @@ class TcMenu14 extends TcBase {
 		$this->assertEquals("yellow",$item->getMeta("color"));
 		$this->assertEquals(null,$item->getMeta("image"));
 	}
+
+	function test_css_class(){
+		$menu = new Menu14();
+
+		$item = $menu->addItem("First","main/first");
+
+		$this->assertEquals(array(),$item->getMeta());
+
+		$this->assertEquals(null,$item->getCssClass());
+		$item->setCssClass("blank");
+		$this->assertEquals("blank",$item->getCssClass());
+
+		$this->assertEquals(array("css_class" => "blank"),$item->getMeta());
+	}
 }

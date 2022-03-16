@@ -392,6 +392,14 @@ class Menu14Item {
 		$this->meta[(string)$key] = $value;
 	}
 
+	function setCssClass($class){
+		$this->setMeta("css_class",$class);
+	}
+
+	function getCssClass(){
+		return $this->getMeta("css_class");
+	}
+
 	function getIdentifier(){ return $this->child_menu->getIdentifier(); }
 	function getPath(){ return $this->child_menu->getPath(); }
 
