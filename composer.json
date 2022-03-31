@@ -16,7 +16,7 @@
         },
         "require-dev": {
                 "atk14/tester": "*",
-                "mockery/mockery": "0.9.11|1.0"
+                "mockery/mockery": "^0.9.11|1.0.*|1.1.*"
         },
         "autoload": {
                 "classmap": ["src"]
