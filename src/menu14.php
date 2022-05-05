@@ -148,12 +148,12 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	/**
 	 * @ignore
 	 */
-	function offsetGet($value){ return $this->items[$value]; }
+	function offsetGet(mixed $value):mixed{ return $this->items[$value]; }
 
 	/**
 	 * @ignore
 	 */
-	function offsetSet($key, $value){
+	function offsetSet(mixed $key, mixed $value) : void {
 		if(!isset($key)){
 			$key = sizeof($this->items);
 		}
@@ -163,37 +163,37 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	/**
 	 * @ignore
 	 */
-	function offsetUnset($offset){ unset($this->items[$offset]); }
+	function offsetUnset(mixed $offset) : void { unset($this->items[$offset]); }
 
 	/**
 	 * @ignore
 	 */
-	function offsetExists($offset){ return isset($this->items[$offset]); }
+	function offsetExists(mixed $offset):bool { return isset($this->items[$offset]); }
 
 	/**
 	 * @ignore
 	 */
-	function current(){ return current($this->items); }
+	function current():mixed{ return current($this->items); }
 
 	/**
 	 * @ignore
 	 */
-	function key(){ return key($this->items); }
+	function key():mixed{ return key($this->items); }
 
 	/**
 	 * @ignore
 	 */
-	function next(){ return next($this->items); }
+	function next():void{ next($this->items); }
 
 	/**
 	 * @ignore
 	 */
-	function rewind(){ reset($this->items); }
+	function rewind():void{ reset($this->items); }
 
 	/**
 	 * @ignore
 	 */
-	function valid(){
+	function valid():bool{
 		$key = key($this->items);
 		return ($key !== null && $key !== false);
 	}
@@ -201,7 +201,7 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	/**
 	 * @ignore
 	 */
-	function count(){ return sizeof($this->items); }
+	function count():int{ return sizeof($this->items); }
 }
 
 class Menu14Item {
