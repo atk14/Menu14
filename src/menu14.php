@@ -148,7 +148,8 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	/**
 	 * @ignore
 	 */
-	function offsetGet($value):mixed{ return $this->items[$value]; }
+	#[\ReturnTypeWillChange]
+	function offsetGet($value){ return $this->items[$value]; }
 
 	/**
 	 * @ignore
@@ -173,12 +174,14 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	/**
 	 * @ignore
 	 */
-	function current():mixed{ return current($this->items); }
+	#[\ReturnTypeWillChange]
+	function current(){ return current($this->items); }
 
 	/**
 	 * @ignore
 	 */
-	function key():mixed{ return key($this->items); }
+	#[\ReturnTypeWillChange]
+	function key(){ return key($this->items); }
 
 	/**
 	 * @ignore
