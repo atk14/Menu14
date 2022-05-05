@@ -148,12 +148,12 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	/**
 	 * @ignore
 	 */
-	function offsetGet(mixed $value):mixed{ return $this->items[$value]; }
+	function offsetGet($value):mixed{ return $this->items[$value]; }
 
 	/**
 	 * @ignore
 	 */
-	function offsetSet(mixed $key, mixed $value) : void {
+	function offsetSet($key, $value):void{
 		if(!isset($key)){
 			$key = sizeof($this->items);
 		}
@@ -163,12 +163,12 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	/**
 	 * @ignore
 	 */
-	function offsetUnset(mixed $offset) : void { unset($this->items[$offset]); }
+	function offsetUnset($offset):void{ unset($this->items[$offset]); }
 
 	/**
 	 * @ignore
 	 */
-	function offsetExists(mixed $offset):bool { return isset($this->items[$offset]); }
+	function offsetExists($offset):bool { return isset($this->items[$offset]); }
 
 	/**
 	 * @ignore
