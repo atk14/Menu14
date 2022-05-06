@@ -4,18 +4,18 @@ os: linux
 # Partner Queue Solution, no credits are consumed
 arch: ppc64le
 
-dist: focal
+dist: xenial
 
 language: php
 
 php:
+  - 7.1
+  - 7.2
+  - 7.3
   - 7.4
-  - 8.0
-  - 8.1
 
-# Here, we need to be phpunit/phpunit=^7.5 installed even for PHP8 for which it is not compatible
 before_install:
-  - composer require "phpunit/phpunit=^7.5" "atk14/tester=^0.4" --ignore-platform-reqs
+  - composer update --dev
 
 script:
   - cd test && ../vendor/bin/run_unit_tests
