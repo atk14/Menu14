@@ -2,6 +2,10 @@ Change Log
 ==========
 All notable changes to this project will be documented in this file.
 
+## [2.0] - 2022-05-06
+
+* Version 2.0 is compatible with PHP ^7.1 and PHP ^8.0
+
 ## [1.6] - 2022-05-06
 
 * Version 1.6 is not compatible with PHP8, it is compatible only with PHP5 (>5.3) and PHP7
