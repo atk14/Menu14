@@ -2,6 +2,10 @@ Change Log
 ==========
 All notable changes to this project will be documented in this file.
 
+## [1.6] - 2022-05-06
+
+* Version 1.6 is not compatible with PHP8, it is compatible only with PHP5 (>5.3) and PHP7
+
 ## [1.5] - 2022-03-16
 
 * 467caa0 - Added methods Menu14Item::setCssClass() and Menu14Item::getCssClass() which are aliases for Menu14Item::setMeta("css_class") and Menu14Item::getMeta("css_class")
