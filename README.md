@@ -76,25 +76,23 @@ In a controller:
     if($tag = $article->getPrimaryTag()){
       $breadcrumbs[] = ["$tag",$this->_link_to(["action" => "articles/index", "tag_id" => $tag])];
     }
-    $breadcrumbs[] = "Best article in the universe";
+    $breadcrumbs[] = $article->getTitle();
 
     $this->tpl_data["breadcrumbs"] = $breadcrumbs;
 
 In a template:
 
-    {if sizeof($breadcrumbs)>1} {* It is not so useful to display only a single bread crumb *}
-      <ol class="breadcrumb">
-        {foreach $breadcrumbs as $breadcrumb}
-          <li>
-            {if $breadcrumb->getUrl() && !$breadcrumb@last} {* we don't want to have a link on the last breadcrumb *}
-              <a href="{$breadcrumb->getUrl()}">{$breadcrumb->getTitle()}</a>
-            {else}
-              {$breadcrumb->getTitle()}
-            {/if}
-          </li>
-        {/foreach}
-      </ol>
-    {/if}
+    <ol class="breadcrumb">
+      {foreach $breadcrumbs as $breadcrumb}
+        <li>
+          {if $breadcrumb->getUrl()}
+            <a href="{$breadcrumb->getUrl()}">{$breadcrumb->getTitle()}</a>
+          {else}
+            {$breadcrumb->getTitle()}
+          {/if}
+        </li>
+      {/foreach}
+    </ol>
 
 Check out http://skelet.atk14.net/en/articles/ to see this example live.
 
