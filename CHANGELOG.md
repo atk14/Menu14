@@ -2,6 +2,10 @@ Change Log
 ==========
 All notable changes to this project will be documented in this file.
 
+## [1.6.1] - 2023-03-10
+
+* da877e6 - PHP8.1 issues
+
 ## [1.6] - 2022-05-06
 
 * Version 1.6 is not compatible with PHP8, it is compatible only with PHP5 (>5.3) and PHP7
