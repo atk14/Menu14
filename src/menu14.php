@@ -148,11 +148,13 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	/**
 	 * @ignore
 	 */
+	#[\ReturnTypeWillChange]
 	function offsetGet($value){ return $this->items[$value]; }
 
 	/**
 	 * @ignore
 	 */
+	#[\ReturnTypeWillChange]
 	function offsetSet($key, $value){
 		if(!isset($key)){
 			$key = sizeof($this->items);
@@ -163,36 +165,43 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	/**
 	 * @ignore
 	 */
+	#[\ReturnTypeWillChange]
 	function offsetUnset($offset){ unset($this->items[$offset]); }
 
 	/**
 	 * @ignore
 	 */
+	#[\ReturnTypeWillChange]
 	function offsetExists($offset){ return isset($this->items[$offset]); }
 
 	/**
 	 * @ignore
 	 */
+	#[\ReturnTypeWillChange]
 	function current(){ return current($this->items); }
 
 	/**
 	 * @ignore
 	 */
+	#[\ReturnTypeWillChange]
 	function key(){ return key($this->items); }
 
 	/**
 	 * @ignore
 	 */
+	#[\ReturnTypeWillChange]
 	function next(){ return next($this->items); }
 
 	/**
 	 * @ignore
 	 */
+	#[\ReturnTypeWillChange]
 	function rewind(){ reset($this->items); }
 
 	/**
 	 * @ignore
 	 */
+	#[\ReturnTypeWillChange]
 	function valid(){
 		$key = key($this->items);
 		return ($key !== null && $key !== false);
@@ -201,6 +210,7 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	/**
 	 * @ignore
 	 */
+	#[\ReturnTypeWillChange]
 	function count(){ return sizeof($this->items); }
 }
 
