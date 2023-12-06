@@ -2,6 +2,10 @@ Change Log
 ==========
 All notable changes to this project will be documented in this file.
 
+## [2.0.1] - 2023-12-06
+
+* 47c3b89 - Fix for PHP 8.2
+
 ## [2.0] - 2022-05-06
 
 * Version 2.0 is compatible with PHP ^7.1 and PHP ^8.0
