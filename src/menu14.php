@@ -10,6 +10,7 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	protected $items = array();
 	protected $identifier = "";
 	protected $meta = array();
+	protected $child_menu;
 
 	function __construct(&$parent_menu = null,$identifier = "",$options = array()){
 		$options += array(
