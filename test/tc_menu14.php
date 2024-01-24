@@ -187,4 +187,14 @@ class TcMenu14 extends TcBase {
 
 		$this->assertEquals(array("css_class" => "blank"),$item->getMeta());
 	}
+
+	function test_url_starting_with_anchor(){
+		$menu = new Menu14();
+
+		$item = $menu->addItem("Cross","#");
+		$this->assertEquals("#",$item->getUrl());
+
+		$item = $menu->addItem("Anchor","#anchor");
+		$this->assertEquals("#anchor",$item->getUrl());
+	}
 }

@@ -289,6 +289,10 @@ class Menu14Item {
 				return $target;
 			}
 
+			if(preg_match('/^#/',$target)){
+				return $target;
+			}
+
 			$ary = explode("/",$target);
 			$params = sizeof($ary)==1 ? array("controller" => $ary[0], "action" => "index") : array("controller" => $ary[0], "action" => $ary[1]);
 			$params["namespace"] = $namespace;
