@@ -2,6 +2,10 @@ Change Log
 ==========
 All notable changes to this project will be documented in this file.
 
+## [2.0.2] - 2024-01-24
+
+* 49e2a72 - Corrected processing of URLs starting with #
+
 ## [2.0.1] - 2023-12-06
 
 * 47c3b89 - Fix for PHP 8.2
