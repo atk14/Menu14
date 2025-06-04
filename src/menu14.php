@@ -40,7 +40,12 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	 */
 	function &addItem($snippet,$targets = array(),$options = array()){
 		if(is_array($snippet)){
-			$targets = $snippet[1];
+			if(isset($snippet[1])){
+				$targets = $snippet[1];
+			}
+			if(isset($snippet[2])){
+				$options = $snippet[2];
+			}
 			$snippet = $snippet[0];
 		}
 

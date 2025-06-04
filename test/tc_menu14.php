@@ -197,4 +197,25 @@ class TcMenu14 extends TcBase {
 		$item = $menu->addItem("Anchor","#anchor");
 		$this->assertEquals("#anchor",$item->getUrl());
 	}
+
+	function test_array_access(){
+		$menu = new Menu14();
+
+		$menu[] = "Title no 1";
+		$menu[] = ["Title no 2"];
+		$menu[] = ["Books","/books/"];
+		$menu[] = ["Articles","/articles/",["active" => true]];
+
+		$items = $menu->getItems();
+		$this->assertEquals(4,sizeof($items));
+
+		$titles = array_map(function($item){ return $item->getTitle();}, $items);
+		$this->assertEquals(["Title no 1","Title no 2","Books","Articles"],$titles);
+
+		$urls = array_map(function($item){ return $item->getUrl();}, $items);
+		$this->assertEquals([null,null,"/books/","/articles/"],$urls);
+		
+		$active_ar = array_map(function($item){ return $item->isActive();}, $items);
+		$this->assertEquals([false,false,false,true],$active_ar);
+	}
 }
