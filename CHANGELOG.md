@@ -2,6 +2,10 @@ Change Log
 ==========
 All notable changes to this project will be documented in this file.
 
+## [2.0.4] - 2025-08-13
+
+* a994eb1 - Fixes for PHP8.3
+
 ## [2.0.3] - 2025-06-04
 
 * 318b09e - Adding an item into the Menu14 using ArrayAccess fixed
