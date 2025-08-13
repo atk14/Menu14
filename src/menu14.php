@@ -160,6 +160,7 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	/**
 	 * @ignore
 	 */
+	#[\ReturnTypeWillChange]
 	function offsetSet($key, $value):void{
 		if(!isset($key)){
 			$key = sizeof($this->items);
@@ -170,11 +171,13 @@ class Menu14 implements ArrayAccess, Iterator, Countable {
 	/**
 	 * @ignore
 	 */
+	#[\ReturnTypeWillChange]
 	function offsetUnset($offset):void{ unset($this->items[$offset]); }
 
 	/**
 	 * @ignore
 	 */
+	#[\ReturnTypeWillChange]
 	function offsetExists($offset):bool { return isset($this->items[$offset]); }
 
 	/**
